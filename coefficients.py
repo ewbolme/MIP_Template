@@ -7,8 +7,13 @@ def create_history_cost_dict(names_list, history_df) -> Tuple[List, Dict[(str, s
     #TODO figure out how to make this less messy
     for i in range(0, len(names_list)+1):
         for j in range(i+1, len(names_list)+1):
-            history_dict[names_list[i], names_list[i]]=10000
+            A_Name = names_list[i]
+            if A_Name == 'ZZZ_UNMATCHED':
+                 history_dict[names_list[i], names_list[j]]=-1           
+            else:
+                history_dict[names_list[i], names_list[j]]=10000
 
+    #TODO delete this comment
     for index, row in history_df.iterrows():
         days_since_last_chat = find_days_since_last_chat(row['Date'])
         if days_since_last_chat < history_dict[row['A_Name'], row['Z_Name']]:
